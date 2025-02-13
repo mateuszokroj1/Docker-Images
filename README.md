@@ -1,2 +1,2 @@
 # Docker-Images
-Dockerfiles for my images stored on DockerHub
+Dockerfiles for my images stored on GitHub Images Registry
