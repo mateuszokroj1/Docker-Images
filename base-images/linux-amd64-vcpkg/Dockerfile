@@ -19,4 +19,4 @@ RUN apt install curl zip unzip
 # Clone repo of vcpkg
 RUN git clone https://github.com/microsoft/vcpkg
 
-RUN ./vcpkg/bootstrap-vcpkg.sh
+RUN ./vcpkg/bootstrap-vcpkg.sh 
