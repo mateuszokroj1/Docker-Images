@@ -40,4 +40,4 @@ jobs:
     # Runs a single command using the runners shell
     - name: Docker Build
       shell: sh
-      run: docker build . -f ${{ strategy.matrix.image }}
+      run: docker build . -f ${{ matrix.image }}
