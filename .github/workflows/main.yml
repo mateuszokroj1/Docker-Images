@@ -7,6 +7,10 @@ name: Build all Docker images
 on:
   push:
     branches: [main]
+
+  pull_request:
+    branches: [main]
+    
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -22,7 +26,7 @@ jobs:
          include:
          - image: ./base-images/linux-amd64-vcpkg/Dockerfile
            runner: ubuntu-latest
-         - image: ./base-images/win/WinServer-Amd64-Vcpkg/Dockerfile
+         #- image: ./base-images/win/WinServer-Amd64-Vcpkg/Dockerfile
   
     # The type of runner that the job will run on
     runs-on: ${{ strategy.matrix.runner }}
