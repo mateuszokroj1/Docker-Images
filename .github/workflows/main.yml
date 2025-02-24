@@ -1,0 +1,39 @@
+# This is a basic workflow that is manually triggered
+
+name: Build all Docker images
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  docker-build:
+
+    strategy:
+       matrix:
+         runner:
+         - windows-latest
+         - ubuntu-latest
+         include:
+         - image: ./base-images/linux-amd64-vcpkg/Dockerfile
+           runner: ubuntu-latest
+         - image: ./base-images/win/WinServer-Amd64-Vcpkg/Dockerfile
+  
+    # The type of runner that the job will run on
+    runs-on: ${{ strategy.matrix.runner }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+    - name: Git Checkout
+      uses: actions/checkout@latest
+    
+    # Runs a single command using the runners shell
+    - name: Docker Build
+      shell: sh
+      run: docker build . -f ${{ strategy.matrix.image }}
