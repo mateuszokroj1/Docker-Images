@@ -29,7 +29,7 @@ jobs:
          #- image: ./base-images/win/WinServer-Amd64-Vcpkg/Dockerfile
   
     # The type of runner that the job will run on
-    runs-on: ${{ strategy.matrix.runner }}
+    runs-on: ${{ matrix.runner }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
