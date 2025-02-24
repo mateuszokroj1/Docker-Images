@@ -35,7 +35,7 @@ jobs:
     steps:
 
     - name: Git Checkout
-      uses: actions/checkout@latest
+      uses: actions/checkout@v4.2.2
     
     # Runs a single command using the runners shell
     - name: Docker Build
