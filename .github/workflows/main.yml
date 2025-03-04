@@ -21,12 +21,13 @@ jobs:
     strategy:
        matrix:
          runner:
-         #- windows-latest
+         - windows-latest
          - ubuntu-latest
          include:
          - image: ./base-images/linux-amd64-vcpkg/Dockerfile
            runner: ubuntu-latest
-         #- image: ./base-images/win/WinServer-Amd64-Vcpkg/Dockerfile
+         - image: ./base-images/win/WinServer-Amd64-Vcpkg/Dockerfile
+           runner: windows-latest
   
     # The type of runner that the job will run on
     runs-on: ${{ matrix.runner }}
