@@ -14,11 +14,15 @@ RUN apt install build-essential gcc clang-format clang-tidy clang-tools clang cl
 RUN apt install git-all git-lfs -y
 
 # Install vcpkg system dependencies
-RUN apt install curl zip unzip -y
+RUN apt install curl zip unzip pkg-config libtool libtool-bin libmount-dev  -y
+
+# Disable 
+RUN echo "insecure" >> /root/.curlrc
 
 # Clone repo of vcpkg
 RUN git clone https://github.com/microsoft/vcpkg
 
 RUN ./vcpkg/bootstrap-vcpkg.sh 
 
-ENV VCPKG_ROOT="$HOME/vcpkg"
+ENV VCPKG_ROOT="/home/vcpkg"
+ENV PATH="$VCPKG_ROOT:$PATH"
