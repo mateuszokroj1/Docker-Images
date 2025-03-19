@@ -13,6 +13,7 @@ python3-jinja2 \
 autoconf \
 autoconf-archive \
 bison \
+flex \
 libfontconfig1-dev \
 libfreetype-dev \
 libx11-dev \
