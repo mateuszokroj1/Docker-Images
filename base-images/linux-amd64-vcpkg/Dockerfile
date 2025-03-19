@@ -14,7 +14,7 @@ RUN apt install build-essential gcc clang-format clang-tidy clang-tools clang cl
 RUN apt install git-all git-lfs -y
 
 # Install vcpkg system dependencies
-RUN apt install curl zip unzip pkg-config libtool libtool-bin libmount-dev  -y
+RUN apt install curl zip unzip pkg-config libtool libtool-bin libmount-dev meson -y
 
 # Disable 
 RUN echo "insecure" >> /root/.curlrc
