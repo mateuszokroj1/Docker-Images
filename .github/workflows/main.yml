@@ -26,6 +26,9 @@ jobs:
          include:
          - image: ./base-images/linux-amd64-vcpkg/Dockerfile
            runner: ubuntu-latest
+         - image: ./qt/linux-amd64-vcpkg-qt6/Dockerfile
+           runner: ubuntu-latest
+        
          - image: ./base-images/win/WinServer-Amd64-Vcpkg/Dockerfile
            runner: windows-latest
   
@@ -41,4 +44,4 @@ jobs:
     # Runs a single command using the runners shell
     - name: Docker Build
       shell: sh
-      run: docker build . -f ${{ matrix.image }}
+      run: docker build . -f ${{ matrix.image }} --build-arg GITHUB_TOKEN=$GITHUB_TOKEN
