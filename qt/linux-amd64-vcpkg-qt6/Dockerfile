@@ -5,6 +5,14 @@ ARG GITHUB_TOKEN=0
 INCLUDE+ ../../base-images/linux-amd64-vcpkg/Dockerfile
 
 RUN apt install \
+libtool \
+libtool-bin \
+libmount-dev \
+meson \
+python3-jinja2 \
+autoconf \
+autoconf-archive \
+bison \
 libfontconfig1-dev \
 libfreetype-dev \
 libx11-dev \
