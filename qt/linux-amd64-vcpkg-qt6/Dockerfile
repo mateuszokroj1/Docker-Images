@@ -31,8 +31,6 @@ libxkbcommon-dev \
 libxkbcommon-x11-dev \
 libxrender-dev -y
 
-RUN if["${GITHUB_TOKEN}" != "0"] then \
-        echo "-H 'Authorization: Bearer ${GITHUB_TOKEN}'" >> /root/.curlrc \
-    fi
+RUN echo "-H 'Authorization: Bearer ${GITHUB_TOKEN}'" >> /root/.curlrc 
 
 RUN vcpkg install qtbase qtdeclarative qtsvg qtimageformats
