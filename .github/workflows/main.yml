@@ -24,13 +24,15 @@ jobs:
          - windows-latest
          - ubuntu-latest
          include:
-         - image: ./base-images/linux-amd64-vcpkg/Dockerfile
+         - image: ./base-images/linux-amd64-vcpkg
            runner: ubuntu-latest
-         - image: ./qt/linux-amd64-vcpkg-qt6/Dockerfile
+           tag: linux-amd64-vcpkg-base
+         - image: ./qt/linux-amd64-vcpkg-qt6
            runner: ubuntu-latest
-        
-         - image: ./base-images/win/WinServer-Amd64-Vcpkg/Dockerfile
+           tag: linux-amd64-vcpkg-qt6
+         - image: ./base-images/win/WinServer-Amd64-Vcpkg
            runner: windows-latest
+           tag: WinServer-Amd64-Vcpkg-base
   
     # The type of runner that the job will run on
     runs-on: ${{ matrix.runner }}
@@ -44,4 +46,5 @@ jobs:
     # Runs a single command using the runners shell
     - name: Docker Build
       shell: sh
-      run: docker build . -f ${{ matrix.image }} --build-arg GITHUB_TOKEN=$GITHUB_TOKEN
+      working-directory: ${{ matrix.image }}
+      run: docker build --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -t mateuszokroj1/${{ matrix.tag }}
