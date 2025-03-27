@@ -1,4 +1,4 @@
-FROM mateuszokroj1/linux-amd64-vcpkg-base
+FROM linux-amd64-vcpkg-base
 
 ARG GITHUB_TOKEN=0
 
