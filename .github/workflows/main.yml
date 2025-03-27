@@ -47,4 +47,4 @@ jobs:
     - name: Docker Build
       shell: sh
       working-directory: ${{ matrix.image }}
-      run: docker build --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -t mateuszokroj1/${{ matrix.tag }}
+      run: docker build --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -t mateuszokroj1/${{ matrix.tag }} .
