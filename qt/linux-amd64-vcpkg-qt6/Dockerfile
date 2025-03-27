@@ -1,8 +1,6 @@
-# syntax = edrevo/dockerfile-plus
+FROM mateuszokroj1/linux-amd64-vcpkg-base
 
 ARG GITHUB_TOKEN=0
-
-INCLUDE+ ../../base-images/linux-amd64-vcpkg/Dockerfile
 
 RUN apt install \
 libtool \
@@ -43,3 +41,5 @@ libxrender-dev -y
 RUN echo "-H \"Authorization: Bearer ${GITHUB_TOKEN}\"" >> /root/.curlrc 
 
 RUN vcpkg install qtbase qtdeclarative qtsvg qtimageformats
+
+RUN rm /root/.curlrc
