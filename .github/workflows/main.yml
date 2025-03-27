@@ -51,5 +51,5 @@ jobs:
     # Runs a single command using the runners shell
     - name: Docker Build
       shell: sh
-      working-directory: ./base-images/win/WinServer-Amd64-Vcpkg
-      run: docker build --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -t WinServer-Amd64-Vcpkg-base .
+      working-directory: ./base-images/win/WinServer-Amd64-Vcpkg-MSVC
+      run: docker build --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -t winserver-amd64-vcpkg-msvc-base .
