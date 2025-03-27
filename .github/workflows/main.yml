@@ -16,26 +16,31 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "greet"
-  docker-build:
-
-    strategy:
-       matrix:
-         runner:
-         - windows-latest
-         - ubuntu-latest
-         include:
-         - image: ./base-images/linux-amd64-vcpkg
-           runner: ubuntu-latest
-           tag: linux-amd64-vcpkg-base
-         - image: ./qt/linux-amd64-vcpkg-qt6
-           runner: ubuntu-latest
-           tag: linux-amd64-vcpkg-qt6
-         - image: ./base-images/win/WinServer-Amd64-Vcpkg
-           runner: windows-latest
-           tag: WinServer-Amd64-Vcpkg-base
+  linux:
   
     # The type of runner that the job will run on
-    runs-on: ${{ matrix.runner }}
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+    - name: Git Checkout
+      uses: actions/checkout@v4.2.2
+    
+    # Runs a single command using the runners shell
+    - name: linux-amd64-vcpkg-base
+      shell: sh
+      working-directory: ./base-images/linux-amd64-vcpkg
+      run: docker build --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -t linux-amd64-vcpkg-base .
+
+    - name: linux-amd64-vcpkg-qt6
+      shell: sh
+      working-directory: ./qt/linux-amd64-vcpkg-qt6
+      run: docker build --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -t linux-amd64-vcpkg-qt6 .
+
+  windows:
+
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -46,5 +51,5 @@ jobs:
     # Runs a single command using the runners shell
     - name: Docker Build
       shell: sh
-      working-directory: ${{ matrix.image }}
-      run: docker build --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -t ${{ matrix.tag }} .
+      working-directory: ./base-images/win/WinServer-Amd64-Vcpkg
+      run: docker build --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -t WinServer-Amd64-Vcpkg-base .
