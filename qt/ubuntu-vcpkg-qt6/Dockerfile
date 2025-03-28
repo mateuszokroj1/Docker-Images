@@ -1,14 +1,21 @@
-FROM linux-vcpkg-base
-
 ARG GITHUB_TOKEN=0
+ARG BASE_IMAGE
+
+FROM $BASE_IMAGE
 
 RUN apt install \
 linux-libc-dev \
 libtool \
 libtool-bin \
 libmount-dev \
-meson \
+python3 \
+python3-setuptools \
+python3-pip \
+python3-venv \
 python3-jinja2 \
+meson \
+gettext \
+automake \
 autoconf \
 autoconf-archive \
 bison \
@@ -20,7 +27,18 @@ libxrender-dev \
 libxi-dev \
 libxkbcommon-dev \
 libxkbcommon-x11-dev \
-libegl1-mesa-dev -y
+libegl1-mesa-dev \
+libgl1-mesa-dev \
+libglu1-mesa-dev \
+mesa-common-dev \
+libxrandr-dev \
+libxxf86vm-dev \
+libxcursor-dev \
+libxext-dev \
+libxfixes-dev \
+libxrender-dev \
+libxkbcommon-dev \
+libxkbcommon-x11-dev -y
 
 RUN echo "-H \"Authorization: Bearer ${GITHUB_TOKEN}\"" >> /root/.curlrc 
 
