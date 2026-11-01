@@ -29,7 +29,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@4
+    - uses: actions/checkout@v4
     - name: Build the Docker Image
       working-directory: ${{ matrix.image-path }}
       run: docker build .
