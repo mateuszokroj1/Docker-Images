@@ -16,7 +16,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7.0.1
+      name: Git Checkout
+      
     - name: Build the Docker image
       working-directory: ${{ matrix.image-path }}
       run: docker build .
@@ -29,7 +31,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7.0.1
+      name: Git Checkout
+    
     - name: Build the Docker Image
       working-directory: ${{ matrix.image-path }}
       run: docker build .
