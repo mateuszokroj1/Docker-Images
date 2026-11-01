@@ -1,0 +1,35 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build-on-linux:
+    strategy:
+      matrix:
+       image-path: [base-images/linux-amd64-vcpkg]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      working-directory: ${{ matrix.image-path }}
+      run: docker build .
+
+  build-on-windows:
+    strategy:
+      matrix:
+        image-path: [base-images/win/WinServer-Amd64-Vcpkg]
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@4
+    - name: Build the Docker Image
+      working-directory: ${{ matrix.image-path }}
+      run: docker build .
