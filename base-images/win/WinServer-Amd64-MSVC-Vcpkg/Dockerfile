@@ -1,6 +1,6 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2025
+FROM mcr.microsoft.com/windows/server:ltsc2025
 
-LABEL description="Microsoft Windows Server Core LTSC 2025 with installed: \n\
+LABEL description="Microsoft Windows Server LTSC 2025 with installed: \n\
        - MS Visual Studio 2026 Community \n\
        - Git \n\
        - Git LFS \n\
