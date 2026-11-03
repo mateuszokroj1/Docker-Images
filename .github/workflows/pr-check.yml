@@ -45,7 +45,7 @@ jobs:
       matrix:
         image-path: [base-images/win/WinServer-Amd64-MSVC-Vcpkg]
 
-    runs-on: windows-latest
+    runs-on: windows-2025
 
     steps:
     - uses: actions/checkout@v7.0.1
