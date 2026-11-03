@@ -22,23 +22,34 @@ jobs:
     - uses: actions/checkout@v7.0.1
       name: Git Checkout
 
-    - name: Docker Setup Buildx
+  #  - name: Docker Setup Buildx
       # You may pin to the exact commit or the version.
       # uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069
-      uses: docker/setup-buildx-action@v4.4.1
+  #    uses: docker/setup-buildx-action@v4.4.1
+  #    with:
+   #     driver-opts: image=moby/buildkit:v0.34.2
+
+    - name: Read tags info
+      id: tags_json
+      uses: ActionsTools/read-json-action@main
       with:
-        driver-opts: image=moby/buildkit:v0.34.2
+        file_path: ${{ matrix.image-path }}/tags.json
 
     - name: Build Docker images
       # You may pin to the exact commit or the version.
       # uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc
-      uses: docker/build-push-action@v7.4.0
-      with:
-        file: ${{ matrix.image-path }}/Dockerfile
+   #   uses: docker/build-push-action@v7.4.0
+   #   with:
+    #    file: ${{ matrix.image-path }}/Dockerfile
         # Always attempt to pull all referenced images
-        pull: false
+     #   pull: false
         # Push is a shorthand for --output=type=registry
-        push: false
+     #   push: false
+      working-directory: ${{ matrix.image-path }}
+      run: docker build -t ${{ steps.tags_json.outputs.primary-tag }} .
+
+    - name: Analyze SBOM
+      run: docker scout ${{ steps.tags_json.outputs.primary-tag }}
 
   build-on-windows:
     strategy:
@@ -51,20 +62,31 @@ jobs:
     - uses: actions/checkout@v7.0.1
       name: Git Checkout
 
-    - name: Docker Setup Buildx
+    - name: Read tags info
+      id: tags_json
+      uses: ActionsTools/read-json-action@main
+      with:
+        file_path: ${{ matrix.image-path }}/tags.json
+
+ #   - name: Docker Setup Buildx
       # You may pin to the exact commit or the version.
       # uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069
-      uses: docker/setup-buildx-action@v4.4.1
-      with:
-        driver-opts: image=moby/buildkit:v0.34.2
+ #     uses: docker/setup-buildx-action@v4.4.1
+  #    with:
+    #    driver-opts: image=moby/buildkit:v0.34.2
     
     - name: Build Docker images
       # You may pin to the exact commit or the version.
       # uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc
-      uses: docker/build-push-action@v7.4.0
-      with:
-        file: ${{ matrix.image-path }}/Dockerfile
+  #    uses: docker/build-push-action@v7.4.0
+  #    with:
+  #      file: ${{ matrix.image-path }}/Dockerfile
         # Always attempt to pull all referenced images
-        pull: false
+   #     pull: false
         # Push is a shorthand for --output=type=registry
-        push: false
+   #     push: false
+      working-directory: ${{ matrix.image-path }}
+      run: docker build -t ${{ steps.tags_json.outputs.primary-tag }} .
+
+    - name: Analyze SBOM
+      run: docker scout ${{ steps.tags_json.outputs.primary-tag }}
