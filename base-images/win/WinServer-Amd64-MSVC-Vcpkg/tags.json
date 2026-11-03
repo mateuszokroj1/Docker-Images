@@ -1,0 +1,4 @@
+{
+    "primary-tag": "mateuszokroj1/winserver-amd64-msvc-vcpkg:latest",
+    "secondary-tag": "mateuszokroj1/winserver-amd64-msvc-vcpkg:winserverltsc2025-vs2026"
+}
