@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
 
@@ -48,8 +49,14 @@ jobs:
       working-directory: ${{ matrix.image-path }}
       run: docker build -t ${{ steps.tags_json.outputs.primary-tag }} .
 
-    - name: Analyze SBOM
-      run: docker scout ${{ steps.tags_json.outputs.primary-tag }}
+    -   name: Docker Scout
+        id: docker-scout
+        uses: docker/scout-action@v1
+        with:
+          command: cves
+          image: ${{ steps.tags_json.outputs.primary-tag }}
+          ignore-unchanged: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   build-on-windows:
     strategy:
@@ -88,5 +95,11 @@ jobs:
       working-directory: ${{ matrix.image-path }}
       run: docker build -t ${{ steps.tags_json.outputs.primary-tag }} .
 
-    - name: Analyze SBOM
-      run: docker scout ${{ steps.tags_json.outputs.primary-tag }}
+    -   name: Docker Scout
+        id: docker-scout
+        uses: docker/scout-action@v1
+        with:
+          command: cves
+          image: ${{ steps.tags_json.outputs.primary-tag }}
+          ignore-unchanged: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
