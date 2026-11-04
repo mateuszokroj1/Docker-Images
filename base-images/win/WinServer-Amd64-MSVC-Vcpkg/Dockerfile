@@ -29,8 +29,8 @@ RUN git clone https://github.com/microsoft/vcpkg.git
 RUN ./vcpkg/bootstrap-vcpkg.bat
 ENV VCPKG_ROOT="C:/Users/ContainerUser/vcpkg"
 
-RUN curl -SL --output vs_community.exe https://aka.ms/vs/stable/vs_community.exe
-RUN vs_community.exe --quiet --wait --norestart \
+RUN Invoke-WebRequest https://aka.ms/vs/stable/vs_community.exe -OutFile vs_community.exe
+RUN ./vs_community.exe --quiet --wait --norestart \
         --add Microsoft.Component.MSBuild \
         --add Microsoft.VisualStudio.Component.CoreEditor \
         --add Microsoft.VisualStudio.Component.CppBuildInsights \
@@ -64,7 +64,7 @@ RUN vs_community.exe --quiet --wait --norestart \
         --add Microsoft.VisualStudio.Workload.NativeGame
     # Cleanup
     
-RUN del /q vs_community.exe
+RUN Remove-Item -Path vs_community.exe
 
 USER ContainerUser
 
