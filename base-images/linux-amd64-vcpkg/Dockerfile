@@ -11,10 +11,10 @@ RUN apt full-upgrade -y
 RUN apt install build-essential gcc clang-format clang-tidy clang-tools clang clangd libc++-dev libc++abi-dev libclang-dev liblldb-dev lld lldb llvm-dev llvm-runtime llvm python3-clang -y
 
 # Install Git
-RUN apt install git git-lfs
+RUN apt install git git-lfs -y
 
 # Install vcpkg system dependencies
-RUN apt install curl tar libbz2-1.0 libc6 zip unzip
+RUN apt install curl tar libbz2-1.0 libc6 zip unzip -y
 
 # Clone repo of vcpkg
 RUN git clone https://github.com/microsoft/vcpkg
