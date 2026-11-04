@@ -72,6 +72,7 @@ jobs:
           image: ${{ steps.tags_json.outputs.primary-tag }}
           ignore-unchanged: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
 
   build-on-windows:
     strategy:
@@ -131,3 +132,4 @@ jobs:
           image: ${{ steps.tags_json.outputs.primary-tag }}
           ignore-unchanged: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
