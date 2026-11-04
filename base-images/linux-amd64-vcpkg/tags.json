@@ -1,0 +1,4 @@
+{
+    "primary-tag": "mateuszokroj1/linux-amd64-vcpkg:latest",
+    "secondary-tag": "mateuszokroj1/linux-amd64-vcpkg:ubuntu26-dev"
+}

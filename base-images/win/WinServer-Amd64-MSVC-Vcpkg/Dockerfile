@@ -29,14 +29,8 @@ RUN git clone https://github.com/microsoft/vcpkg.git
 RUN ./vcpkg/bootstrap-vcpkg.bat
 ENV VCPKG_ROOT="C:/Users/ContainerUser/vcpkg"
 
-# Install MSVC Build Tools
-SHELL ["cmd", "/S", "/C"]
-RUN \
-    # Download the Build Tools bootstrapper.
-    curl -SL --output vs_community.exe https://aka.ms/vs/stable/vs_community.exe \
-    \
-    # Install Build Tools with the Microsoft.VisualStudio.Workload.AzureBuildTools workload, excluding workloads and components with known issues.
-    && (start /w vs_community.exe --quiet --wait --norestart \
+RUN Invoke-WebRequest https://aka.ms/vs/stable/vs_community.exe -OutFile vs_community.exe
+RUN ./vs_community.exe --quiet --wait --norestart \
         --add Microsoft.Component.MSBuild \
         --add Microsoft.VisualStudio.Component.CoreEditor \
         --add Microsoft.VisualStudio.Component.CppBuildInsights \
@@ -67,11 +61,10 @@ RUN \
         --add Microsoft.NetCore.Component.Runtime.10.0 \
         --add Microsoft.VisualStudio.Workload.CoreEditor \
         --add Microsoft.VisualStudio.Workload.NativeDesktop \
-        --add Microsoft.VisualStudio.Workload.NativeGame \
-        || IF "%ERRORLEVEL%"=="3010" EXIT 0) \
-    \
+        --add Microsoft.VisualStudio.Workload.NativeGame
     # Cleanup
-    && del /q vs_community.exe
+    
+RUN Remove-Item -Path vs_community.exe
 
 USER ContainerUser
 
