@@ -8,13 +8,13 @@ RUN apt update
 RUN apt full-upgrade -y
 
 # Install basic dev-libs
-RUN apt install build-essential gcc clang-format clang-tidy clang-tools clang clangd libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev liblldb-dev libllvm-ocaml-dev libomp-dev libomp5 lld lldb llvm-dev llvm-runtime llvm python3-clang -y
+RUN apt install build-essential gcc clang-format clang-tidy clang-tools clang clangd libc++-dev libc++abi-dev libclang-dev liblldb-dev lld lldb llvm-dev llvm-runtime llvm python3-clang -y
 
 # Install Git
-RUN apt install git-all git-lfs -y
+RUN apt install git git-lfs -y
 
 # Install vcpkg system dependencies
-RUN apt install curl zip unzip -y
+RUN apt install curl tar libbz2-1.0 libc6 zip unzip -y
 
 # Clone repo of vcpkg
 RUN git clone https://github.com/microsoft/vcpkg
@@ -22,3 +22,4 @@ RUN git clone https://github.com/microsoft/vcpkg
 RUN ./vcpkg/bootstrap-vcpkg.sh 
 
 ENV VCPKG_ROOT="/home/vcpkg"
+ENV PATH="${VCPKG_ROOT}:${PATH}"
